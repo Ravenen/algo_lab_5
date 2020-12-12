@@ -1,4 +1,7 @@
-def get_longest_prefix_suffix(pattern_string, code, current_state):
+from typing import Callable, List
+
+
+def get_longest_prefix_suffix(pattern_string: str, code: int, current_state: int):
     temporary_string = pattern_string[:current_state] + chr(code) + pattern_string[current_state + 1:]
     result = 0
     for possible_state in range(current_state):
@@ -10,13 +13,13 @@ def get_longest_prefix_suffix(pattern_string, code, current_state):
     return result
 
 
-def get_next_state_by_code(pattern_string, code, current_state):
+def get_next_state_by_code(pattern_string: str, code: int, current_state: int):
     if ord(pattern_string[current_state]) == code:
         return current_state + 1
     return get_longest_prefix_suffix(pattern_string, code, current_state)
 
 
-def generate_transition_function(pattern_string, alphabet):
+def generate_transition_function(pattern_string: str, alphabet: List[str]):
     alphabet_length = len(alphabet)
     number_of_states = len(pattern_string) + 1
 
@@ -28,7 +31,7 @@ def generate_transition_function(pattern_string, alphabet):
     return transition_function
 
 
-def search_substring(input_string, pattern_string, output_function, alphabet=None):
+def search_substring(input_string: str, pattern_string: str, output_function: Callable, alphabet: List[str] = None):
     if alphabet is None:
         alphabet = [chr(code) for code in range(256)]
     transition_function = generate_transition_function(pattern_string, alphabet)
@@ -40,9 +43,3 @@ def search_substring(input_string, pattern_string, output_function, alphabet=Non
             start_index = index - len(pattern_string) + 1
             end_index = index
             output_function(start_index, end_index)
-
-
-if __name__ == '__main__':
-    output_list = []
-    search_substring("testStringGoesHeretr", "tr", lambda start, end: output_list.append((start, end)))
-    print(output_list)
