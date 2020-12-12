@@ -10,5 +10,5 @@ Input file `search.in` contains 2 rows:
 #### Output data:
 Each row of output file `search.out` contains 2 numbers: start and end position in the string where the substring was found
 
-##Algorithm
+## Algorithm
 Алгоритм побудований на скінченному автоматі, в якому кожен стан відповідає співпадінню символу з шуканої підстрічки. Отримуємо стан автомата для кожного символа зі стрічки і коли стан відповідатиме довжині шуканої стрічки - ми знайшли співпадіння  
