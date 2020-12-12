@@ -43,3 +43,4 @@ def search_substring(input_string: str, pattern_string: str, output_function: Ca
             start_index = index - len(pattern_string) + 1
             end_index = index
             output_function(start_index, end_index)
+            state = 0
