@@ -32,8 +32,17 @@ def search_substring(input_string, pattern_string, output_function, alphabet=Non
     if alphabet is None:
         alphabet = [chr(code) for code in range(256)]
     transition_function = generate_transition_function(pattern_string, alphabet)
-    print(transition_function)
+
+    state = 0
+    for index, letter in enumerate(input_string):
+        state = transition_function[state][alphabet.index(letter)]
+        if state == len(pattern_string):
+            start_index = index - len(pattern_string) + 1
+            end_index = index
+            output_function(start_index, end_index)
 
 
 if __name__ == '__main__':
-    search_substring("test", "ACACAGA", 1, ['A', 'C', 'G', 'T'])
+    output_list = []
+    search_substring("testStringGoesHeretr", "tr", lambda start, end: output_list.append((start, end)))
+    print(output_list)
