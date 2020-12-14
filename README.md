@@ -1,6 +1,6 @@
 
 # Deterministic state automate algorithm  
-Task: implement **finite-state automate** algorithm for searching the substring in string
+Task: implement **Knuth-Morris=Pratt** algorithm for searching the substring in string
 
 #### Input data:
 Input file `search.in` contains 2 rows:
