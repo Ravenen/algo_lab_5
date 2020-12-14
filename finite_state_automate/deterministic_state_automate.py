@@ -17,7 +17,7 @@ def fill_in_zero_state(transition_function: List[Dict[str, int]], pattern_string
 def generate_transition_function(pattern_string: str, alphabet: List[str]):
     number_of_states = len(pattern_string) + 1
 
-    transition_function = [{letter: 0 for letter in alphabet} for j in range(number_of_states)]
+    transition_function = [{letter: 0 for letter in alphabet} for _ in range(number_of_states)]
 
     fill_in_zero_state(transition_function, pattern_string, alphabet)
 
@@ -31,15 +31,19 @@ def generate_transition_function(pattern_string: str, alphabet: List[str]):
     return transition_function
 
 
-def search_substring(input_string: str, pattern_string: str, output_function: Callable, alphabet: List[str] = None):
-    if alphabet is None:
-        alphabet = [chr(code) for code in range(256)]
-    transition_function = generate_transition_function(pattern_string, alphabet)
-
+def perform_search_on_string(input_string: str, pattern_string: str, output_function: Callable,
+                             transition_function: List[Dict[str, int]]):
     state = 0
     for index, letter in enumerate(input_string):
-        state = transition_function[state][letter]
+        state = transition_function[state].get(letter)
         if state == len(pattern_string):
             start_index = index - len(pattern_string) + 1
             end_index = index
             output_function(start_index, end_index)
+
+
+def search_substring(input_string: str, pattern_string: str, output_function: Callable, alphabet: List[str] = None):
+    if alphabet is None:
+        alphabet = [chr(code) for code in range(256)]
+    transition_function = generate_transition_function(pattern_string, alphabet)
+    perform_search_on_string(input_string, pattern_string, output_function, transition_function)
